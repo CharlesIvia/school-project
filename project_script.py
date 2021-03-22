@@ -4,21 +4,16 @@ import pandas as pd
 import numpy as np
 from scipy.stats import skew, kurtosis
 from scipy import stats
-from statsmodels.stats.stattools import jarque_bera
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn import preprocessing, metrics
-from sklearn.utils import axis0_safe_slice
 import qeds
 from statsmodels.stats.diagnostic import normal_ad
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-from statsmodels.stats.stattools import durbin_watson
-from statsmodels.tsa.stattools import adfuller
-from statsmodels.tsa.stattools import coint
+from statsmodels.stats.stattools import durbin_watson, jarque_bera
+from statsmodels.tsa.stattools import coint, adfuller
 from statsmodels.tsa.vector_ar.vecm import coint_johansen
 import statsmodels.api as sm
-from statsmodels.stats.diagnostic import het_breuschpagan
-from statsmodels.stats.diagnostic import acorr_breusch_godfrey
+from statsmodels.stats.diagnostic import acorr_breusch_godfrey, het_breuschpagan
 from sklearn import (
     linear_model,
     metrics,
@@ -633,19 +628,23 @@ predictions = res.predict(X)
 print(np.exp(predictions))
 
 # perform Breusch-Pagan test
+
+
 def breusch_pagan():
     names = ["Lagrange multiplier statistic", "p-value", "f-value", "f p-value"]
     test = het_breuschpagan(res.resid, res.model.exog)
-    print(dict(zip(names, test)))
+    print(f"Breusch Pagan results: \n {dict(zip(names, test))}")
 
 
 breusch_pagan()
 
 # breusch godfrey test
+
+
 def breusch_godfrey():
     names = ["Lagrange multiplier statistic", "p-value", "f-value", "f p-value"]
     test = acorr_breusch_godfrey(res)
-    print(dict(zip(names, test)))
+    print(f"Breusch Godfrey results: \n {dict(zip(names, test))}")
 
 
 breusch_godfrey()
