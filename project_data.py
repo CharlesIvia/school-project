@@ -35,6 +35,7 @@ life_expc_years_indicator = ["SP.DYN.LE00.IN"]
 co2_emissions_per_capita_indicator = ["EN.ATM.CO2E.PC"]
 health_exp_per_capita_indicator = ["SH.XPD.CHEX.PC.CD"]
 health_expe_pc_GDP_indicator = ["SH.XPD.CHEX.GD.ZS"]
+risk_premium_indicator = ["FR.INR.RISK"]
 
 # Output from the api
 real_interest = get_values_1970_2019(real_interest_indicator)
@@ -58,6 +59,7 @@ life_expc_years = get_values_1970_2019(life_expc_years_indicator)
 co2_emmisions = get_values_1970_2019(co2_emissions_per_capita_indicator)
 health_exp_per_capita_USD = get_values_1970_2019(health_exp_per_capita_indicator)
 health_expe_pc_GDP = get_values_1970_2019(health_expe_pc_GDP_indicator)
+risk_premium = get_values_1970_2019(risk_premium_indicator)
 
 # Create a dataframe
 
@@ -83,6 +85,9 @@ df["life_exp_years"] = life_expc_years
 df["co2_emmisions_per_capita"] = co2_emmisions
 df["health_exp_percapita_USD"] = health_exp_per_capita_USD
 df["health_exp_pc_of_GDP"] = health_expe_pc_GDP
+df["risk_premium"] = risk_premium
+
+df["treasury_rate"] = df["lending_interest_rate"] - df["risk_premium"]
 
 print(df)
 
