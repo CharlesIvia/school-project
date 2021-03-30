@@ -648,3 +648,9 @@ def breusch_godfrey():
 
 
 breusch_godfrey()
+
+stochastic = control_df.describe()
+print(stochastic)
+
+var = control_df.var()
+print(var)
